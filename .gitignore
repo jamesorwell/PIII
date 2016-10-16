@@ -1,0 +1,8 @@
+.classpath
+.project
+target/
+.settings/
+/tradeserver/phantomjsdriver.log
+/Model/nbproject/
+/FilesystemToolkit/nbproject/
+/MusicModel/nbproject/
