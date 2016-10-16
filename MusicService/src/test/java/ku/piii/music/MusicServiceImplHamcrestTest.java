@@ -30,12 +30,12 @@ public class MusicServiceImplHamcrestTest {
 		final MusicService musicService = createMusicServiceInstance();
 		final MusicMediaCollection collectionA = musicService
 				.createMusicMediaCollection(Paths.get("../test-music-files/collection-A"));
-		
+
 		assertEquals(9, collectionA.getMusic().size());
 
 		final MusicMediaCollection collectionB = musicService
 				.createMusicMediaCollection(Paths.get("../test-music-files/collection-B"));
-		
+
 		final MusicMediaCollection merge = collectionA.mergeCollection(collectionB);
 		assertEquals(18, merge.getMusic().size());
 	}
@@ -48,61 +48,47 @@ public class MusicServiceImplHamcrestTest {
 
 		final MusicService musicService = createMusicServiceInstance();
 		final MusicMediaCollection collection = musicService.createMusicMediaCollection(Paths.get(pathToAddFrom));
-		
+
 		assertThat(collection, Matchers.notNullValue());
-		
+
 		musicService.saveMusicMediaCollection(get(jsonFileToSaveToAndLoadFrom), collection);
 		final MusicMediaCollection savedCollection = musicService
 				.loadMusicMediaCollection(get(jsonFileToSaveToAndLoadFrom));
-		
+
 		assertEquals(collection.getMusic().size(), savedCollection.getMusic().size());
 		assertThat(savedCollection, Matchers.notNullValue());
 		assertThat(savedCollection.getMusic(), Matchers.hasSize(collection.getMusic().size()));
-		
-		final List<MusicMediaEquality> expectedMusic = collection
-				.getMusic()
-				.stream()
-				.map(MusicMediaEquality::new)
-				.collect(Collectors.toList());		
 
-		final List<MusicMediaEquality> actualMusic = savedCollection
-												.getMusic()
-												.stream()
-												.map(MusicMediaEquality::new)
-												.collect(Collectors.toList());
+		final List<MusicMediaEquality> expectedMusic = collection.getMusic().stream().map(MusicMediaEquality::new)
+				.collect(Collectors.toList());
+
+		final List<MusicMediaEquality> actualMusic = savedCollection.getMusic().stream().map(MusicMediaEquality::new)
+				.collect(Collectors.toList());
 
 		assertThat(actualMusic, containsInAnyOrder(expectedMusic.toArray()));
 	}
 
-    @Test
-    public void canLoadThenSaveThenLoad() {
-        final String jsonFileToLoadFrom = "../test-json-files/Collection-A.json";
-        final String jsonFileToSaveTo = "../test-json-files/tmp2.json";
-        
-        final MusicService musicService = createMusicServiceInstance();
-        
-        final MusicMediaCollection collectionA
-                = musicService.loadMusicMediaCollection(get(jsonFileToLoadFrom));
-        musicService.saveMusicMediaCollection(get(jsonFileToSaveTo), collectionA);
-        
-        final MusicMediaCollection copyOfCollectionA
-                = musicService.loadMusicMediaCollection(get(jsonFileToSaveTo));
+	@Test
+	public void canLoadThenSaveThenLoad() {
+		final String jsonFileToLoadFrom = "../test-json-files/Collection-A.json";
+		final String jsonFileToSaveTo = "../test-json-files/tmp2.json";
 
-		final List<MusicMediaEquality> expectedMusic = collectionA
-				.getMusic()
-				.stream()
-				.map(MusicMediaEquality::new)
-				.collect(Collectors.toList());		
+		final MusicService musicService = createMusicServiceInstance();
 
-		final List<MusicMediaEquality> actualMusic = copyOfCollectionA
-												.getMusic()
-												.stream()
-												.map(MusicMediaEquality::new)
-												.collect(Collectors.toList());
+		final MusicMediaCollection collectionA = musicService.loadMusicMediaCollection(get(jsonFileToLoadFrom));
+		musicService.saveMusicMediaCollection(get(jsonFileToSaveTo), collectionA);
+
+		final MusicMediaCollection copyOfCollectionA = musicService.loadMusicMediaCollection(get(jsonFileToSaveTo));
+
+		final List<MusicMediaEquality> expectedMusic = collectionA.getMusic().stream().map(MusicMediaEquality::new)
+				.collect(Collectors.toList());
+
+		final List<MusicMediaEquality> actualMusic = copyOfCollectionA.getMusic().stream().map(MusicMediaEquality::new)
+				.collect(Collectors.toList());
 
 		assertThat(actualMusic, containsInAnyOrder(expectedMusic.toArray()));
-    }	
-	
+	}
+
 	public static class MusicMediaEquality {
 		public final MusicMedia musicMedia;
 
@@ -128,25 +114,23 @@ public class MusicServiceImplHamcrestTest {
 				return false;
 			}
 			MusicMediaEquality other = (MusicMediaEquality) obj;
-			return new EqualsBuilder()
-					.append(musicMedia.getAbsolutePath(), other.musicMedia.getAbsolutePath())
+			return new EqualsBuilder().append(musicMedia.getAbsolutePath(), other.musicMedia.getAbsolutePath())
 					.append(musicMedia.getArtist(), other.musicMedia.getArtist())
 					.append(musicMedia.getTitle(), other.musicMedia.getTitle())
-					.append(musicMedia.getYear(), other.musicMedia.getYear())
-					.isEquals();
+					.append(musicMedia.getYear(), other.musicMedia.getYear()).isEquals();
 		}
 
 		@Override
 		public String toString() {
 			return ToStringBuilder.reflectionToString(musicMedia);
-		}		
+		}
 	}
-	
+
 	private MusicService createMusicServiceInstance() {
 		final MusicService instance = new MusicServiceImpl(
 				new MusicRepositoryImpl(new JacksonJSONMarshallingSupport(new ObjectMapper()), new TextFileStoreImpl()),
 				new MP3PathToMusicMapperImpl());
 		return instance;
-	}	
+	}
 
 }
