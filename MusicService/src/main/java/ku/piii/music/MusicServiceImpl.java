@@ -46,7 +46,7 @@ public class MusicServiceImpl implements MusicService {
 
     @Override
     public void saveMusicMediaCollection(final Path fileToSave, final MusicMediaCollection collection) {
-    	musicRepository.save(fileToSave, collection);
+    	musicRepository.saveCollection(fileToSave, collection);
     }
 
 }

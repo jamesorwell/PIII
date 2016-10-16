@@ -24,7 +24,12 @@ public class MusicServiceImplTest {
     @Test
     public void testAddAllMp3Media() {
         MusicService instance
-                = new MusicServiceImpl(new MusicRepositoryImpl(new JacksonJSONMarshallingSupport(new ObjectMapper()), new TextFileStoreImpl()), new MP3PathToMusicMapperImpl());
+                = new MusicServiceImpl(
+                        new MusicRepositoryImpl(
+                                new JacksonJSONMarshallingSupport(new ObjectMapper()),
+                                                                  new TextFileStoreImpl()),
+                        new MP3PathToMusicMapperImpl()
+                );
         MusicMediaCollection collectionA = instance.createMusicMediaCollection(Paths.get("../test-music-files/collection-A"));
         assertEquals(9, collectionA.getMusic().size());
 
@@ -43,7 +48,7 @@ public class MusicServiceImplTest {
                 = new MusicServiceImpl(
                         new MusicRepositoryImpl(
                                 new JacksonJSONMarshallingSupport(new ObjectMapper()),
-                                new TextFileStoreImpl()),
+                                                                  new TextFileStoreImpl()),
                         new MP3PathToMusicMapperImpl()
                 );
         MusicMediaCollection collection = instance.createMusicMediaCollection(Paths.get(pathToAddFrom));
@@ -54,8 +59,8 @@ public class MusicServiceImplTest {
         assertThat(savedCollection, Matchers.notNullValue());
         assertThat(savedCollection.getMusic(), Matchers.hasSize(collection.getMusic().size()));
 
-        boolean comparisonResult = listsAreTheSame(collection.getMusic(),
-                savedCollection.getMusic());
+        boolean comparisonResult = listsAreTheSame( collection.getMusic(),
+                                                    savedCollection.getMusic());
         assertEquals(comparisonResult, true);
     }
 
@@ -68,7 +73,7 @@ public class MusicServiceImplTest {
                 = new MusicServiceImpl(
                         new MusicRepositoryImpl(
                                 new JacksonJSONMarshallingSupport(new ObjectMapper()),
-                                new TextFileStoreImpl()),
+                                                                  new TextFileStoreImpl()),
                         new MP3PathToMusicMapperImpl()
                 );
         MusicMediaCollection collection1
@@ -83,7 +88,7 @@ public class MusicServiceImplTest {
     }
 
     private boolean listsAreTheSame(List<MusicMedia> list1,
-            List<MusicMedia> list2) {
+                                    List<MusicMedia> list2) {
         if (list1 == null && list2 == null) {
             return true;
         }

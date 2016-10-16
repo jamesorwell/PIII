@@ -6,3 +6,4 @@ target/
 /Model/nbproject/
 /FilesystemToolkit/nbproject/
 /MusicModel/nbproject/
+/test-json-files/tmp*.json

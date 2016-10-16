@@ -22,6 +22,7 @@ import ku.piii.model.MusicMedia;
 import ku.piii.model.MusicMediaCollection;
 import ku.piii.mp3.MP3PathToMusicMapperImpl;
 import ku.piii.nio.file.TextFileStoreImpl;
+import static java.nio.file.Paths.get;
 
 public class MusicServiceImplHamcrestTest {
 

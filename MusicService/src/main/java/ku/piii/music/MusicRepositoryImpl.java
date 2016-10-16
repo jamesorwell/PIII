@@ -23,7 +23,7 @@ public class MusicRepositoryImpl implements MusicRepository{
 	}
 
 	@Override
-	public void save(Path path, MusicMediaCollection musicMediaCollection) {
+	public void saveCollection(Path path, MusicMediaCollection musicMediaCollection) {
 		final String jsonMusicCollection = marshallingSupport.marshal(musicMediaCollection);
 		textFileStore.saveText(jsonMusicCollection, path);
 	}
