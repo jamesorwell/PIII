@@ -37,7 +37,7 @@ public class MusicServiceImplTest {
     public void canAddFilesThenSaveThenLoad() {
 
         String pathToAddFrom = "../test-music-files/Collection-B";
-        String jsonFileToSaveToAndLoadFrom = "../test-json-files/Collection-B.json";
+        String jsonFileToSaveToAndLoadFrom = "../test-json-files/tmp1.json";
 
         MusicService instance
                 = new MusicServiceImpl(
@@ -62,7 +62,7 @@ public class MusicServiceImplTest {
     @Test
     public void canLoadThenSaveThenLoad() {
 
-        String jsonFileToLoadFrom = "../test-json-files/Collection-A.json";
+        String jsonFileToLoadFrom = "../test-json-files/Collection-B.json";
         String jsonFileToSaveTo = "../test-json-files/tmp2.json";
         MusicService instance
                 = new MusicServiceImpl(
