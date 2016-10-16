@@ -114,7 +114,8 @@ public class MusicServiceImplHamcrestTest {
 				return false;
 			}
 			MusicMediaEquality other = (MusicMediaEquality) obj;
-			return new EqualsBuilder().append(musicMedia.getAbsolutePath(), other.musicMedia.getAbsolutePath())
+			return new EqualsBuilder()
+					.append(musicMedia.getAbsolutePath(), other.musicMedia.getAbsolutePath())
 					.append(musicMedia.getArtist(), other.musicMedia.getArtist())
 					.append(musicMedia.getTitle(), other.musicMedia.getTitle())
 					.append(musicMedia.getYear(), other.musicMedia.getYear()).isEquals();
