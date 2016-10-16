@@ -44,7 +44,7 @@ public class MusicServiceImplHamcrestTest {
 	public void canAddFilesThenSaveThenLoad() {
 
 		final String pathToAddFrom = "../test-music-files/Collection-B";
-		final String jsonFileToSaveToAndLoadFrom = "../test-json-files/Collection-B.json";
+		final String jsonFileToSaveToAndLoadFrom = "../test-json-files/tmp3.json";
 
 		final MusicService musicService = createMusicServiceInstance();
 		final MusicMediaCollection collection = musicService.createMusicMediaCollection(Paths.get(pathToAddFrom));
@@ -70,8 +70,8 @@ public class MusicServiceImplHamcrestTest {
 
 	@Test
 	public void canLoadThenSaveThenLoad() {
-		final String jsonFileToLoadFrom = "../test-json-files/Collection-A.json";
-		final String jsonFileToSaveTo = "../test-json-files/tmp2.json";
+		final String jsonFileToLoadFrom = "../test-json-files/Collection-B.json";
+		final String jsonFileToSaveTo = "../test-json-files/tmp4.json";
 
 		final MusicService musicService = createMusicServiceInstance();
 
