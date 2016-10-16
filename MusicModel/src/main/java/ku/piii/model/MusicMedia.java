@@ -1,13 +1,12 @@
 package ku.piii.model;
 
 public class MusicMedia {
-
-    private String absolutePath;
+	private String absolutePath;
     private String title, artist, year;
 
     public MusicMedia() {
     }
-
+        
     public String getAbsolutePath() {
         return absolutePath;
     }
