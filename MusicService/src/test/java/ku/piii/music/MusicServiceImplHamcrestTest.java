@@ -25,16 +25,18 @@ import ku.piii.nio.file.TextFileStoreImpl;
 import static java.nio.file.Paths.get;
 
 public class MusicServiceImplHamcrestTest {
-
+	private final static MusicService MUSIC_SERVICE = new MusicServiceImpl(
+			new MusicRepositoryImpl(new JacksonJSONMarshallingSupport(new ObjectMapper()), new TextFileStoreImpl()),
+			new MP3PathToMusicMapperImpl());
+	
 	@Test
 	public void canCreateMusicCollectionFromPath() {
-		final MusicService musicService = createMusicServiceInstance();
-		final MusicMediaCollection collectionA = musicService
+		final MusicMediaCollection collectionA = MUSIC_SERVICE
 				.createMusicMediaCollection(Paths.get("../test-music-files/collection-A"));
 
 		assertEquals(9, collectionA.getMusic().size());
 
-		final MusicMediaCollection collectionB = musicService
+		final MusicMediaCollection collectionB = MUSIC_SERVICE
 				.createMusicMediaCollection(Paths.get("../test-music-files/collection-B"));
 
 		final MusicMediaCollection merge = collectionA.mergeCollection(collectionB);
@@ -47,13 +49,12 @@ public class MusicServiceImplHamcrestTest {
 		final String pathToAddFrom = "../test-music-files/Collection-B";
 		final String jsonFileToSaveToAndLoadFrom = "../test-json-files/tmp3.json";
 
-		final MusicService musicService = createMusicServiceInstance();
-		final MusicMediaCollection collection = musicService.createMusicMediaCollection(Paths.get(pathToAddFrom));
+		final MusicMediaCollection collection = MUSIC_SERVICE.createMusicMediaCollection(Paths.get(pathToAddFrom));
 
 		assertThat(collection, Matchers.notNullValue());
 
-		musicService.saveMusicMediaCollection(get(jsonFileToSaveToAndLoadFrom), collection);
-		final MusicMediaCollection savedCollection = musicService
+		MUSIC_SERVICE.saveMusicMediaCollection(get(jsonFileToSaveToAndLoadFrom), collection);
+		final MusicMediaCollection savedCollection = MUSIC_SERVICE
 				.loadMusicMediaCollection(get(jsonFileToSaveToAndLoadFrom));
 
 		assertEquals(collection.getMusic().size(), savedCollection.getMusic().size());
@@ -74,12 +75,10 @@ public class MusicServiceImplHamcrestTest {
 		final String jsonFileToLoadFrom = "../test-json-files/Collection-B.json";
 		final String jsonFileToSaveTo = "../test-json-files/tmp4.json";
 
-		final MusicService musicService = createMusicServiceInstance();
+		final MusicMediaCollection collectionA = MUSIC_SERVICE.loadMusicMediaCollection(get(jsonFileToLoadFrom));
+		MUSIC_SERVICE.saveMusicMediaCollection(get(jsonFileToSaveTo), collectionA);
 
-		final MusicMediaCollection collectionA = musicService.loadMusicMediaCollection(get(jsonFileToLoadFrom));
-		musicService.saveMusicMediaCollection(get(jsonFileToSaveTo), collectionA);
-
-		final MusicMediaCollection copyOfCollectionA = musicService.loadMusicMediaCollection(get(jsonFileToSaveTo));
+		final MusicMediaCollection copyOfCollectionA = MUSIC_SERVICE.loadMusicMediaCollection(get(jsonFileToSaveTo));
 
 		final List<MusicMediaEquality> expectedMusic = collectionA.getMusic().stream().map(MusicMediaEquality::new)
 				.collect(Collectors.toList());
@@ -114,8 +113,9 @@ public class MusicServiceImplHamcrestTest {
 			if (obj.getClass() != getClass()) {
 				return false;
 			}
-			MusicMediaEquality other = (MusicMediaEquality) obj;
-			return new EqualsBuilder().append(musicMedia.getAbsolutePath(), other.musicMedia.getAbsolutePath())
+			final MusicMediaEquality other = (MusicMediaEquality) obj;
+			return new EqualsBuilder()
+					.append(musicMedia.getAbsolutePath(), other.musicMedia.getAbsolutePath())
 					.append(musicMedia.getArtist(), other.musicMedia.getArtist())
 					.append(musicMedia.getTitle(), other.musicMedia.getTitle())
 					.append(musicMedia.getYear(), other.musicMedia.getYear()).isEquals();
@@ -126,12 +126,4 @@ public class MusicServiceImplHamcrestTest {
 			return ToStringBuilder.reflectionToString(musicMedia);
 		}
 	}
-
-	private MusicService createMusicServiceInstance() {
-		final MusicService instance = new MusicServiceImpl(
-				new MusicRepositoryImpl(new JacksonJSONMarshallingSupport(new ObjectMapper()), new TextFileStoreImpl()),
-				new MP3PathToMusicMapperImpl());
-		return instance;
-	}
-
 }
