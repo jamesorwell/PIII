@@ -15,6 +15,8 @@ import ku.piii.model.MusicMedia;
 import ku.piii.model.MusicMediaCollection;
 import ku.piii.mp3.MP3PathToMusicMapperImpl;
 import ku.piii.nio.file.TextFileStoreImpl;
+import org.hamcrest.Matchers;
+import static org.junit.Assert.assertThat;
 import org.junit.Ignore;
 
 public class MusicServiceImplTest {
@@ -45,9 +47,12 @@ public class MusicServiceImplTest {
                         new MP3PathToMusicMapperImpl()
                 );
         MusicMediaCollection collection = instance.createMusicMediaCollection(Paths.get(pathToAddFrom));
+        assertThat(collection, Matchers.notNullValue());        
         instance.saveMusicMediaCollection(Paths.get(jsonFileToSaveToAndLoadFrom), collection);
         MusicMediaCollection savedCollection = instance.loadMusicMediaCollection(Paths.get(jsonFileToSaveToAndLoadFrom));
         assertEquals(collection.getMusic().size(), savedCollection.getMusic().size());
+        assertThat(savedCollection, Matchers.notNullValue());
+        assertThat(savedCollection.getMusic(), Matchers.hasSize(collection.getMusic().size()));
 
         boolean comparisonResult = listsAreTheSame(collection.getMusic(),
                 savedCollection.getMusic());
