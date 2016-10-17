@@ -13,7 +13,7 @@ public class JacksonJSONMarshallingSupport implements MarshallingSupport {
     
     public JacksonJSONMarshallingSupport(ObjectMapper mapper) {
        this.mapper = mapper;
-       this.mapper.getFactory().configure(JsonGenerator.Feature.ESCAPE_NON_ASCII, true);
+//       this.mapper.getFactory().configure(JsonGenerator.Feature.ESCAPE_NON_ASCII, true);
     }
 
     @Override

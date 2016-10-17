@@ -16,6 +16,18 @@ public class MusicServiceImpl implements MusicService {
     private final MusicRepository musicRepository;
     private final MP3PathToMusicMapper mapper;
 
+    @Override
+    public MusicMediaCollection loadMusicMediaCollection(final Path fileToLoad) {
+        return musicRepository.loadCollection(fileToLoad);
+    }
+
+    @Override
+    public void saveMusicMediaCollection(final Path fileToSave, final MusicMediaCollection collection) {
+    	musicRepository.saveCollection(fileToSave, collection);
+    }
+
+    
+    
     public MusicServiceImpl(final MusicRepository musicRepository, MP3PathToMusicMapper myMapper) {
         this.musicRepository = musicRepository;
         this.mapper = myMapper;        
@@ -37,16 +49,6 @@ public class MusicServiceImpl implements MusicService {
         }
         
         return collection;
-    }
-
-    @Override
-    public MusicMediaCollection loadMusicMediaCollection(final Path fileToLoad) {
-        return musicRepository.loadCollection(fileToLoad);
-    }
-
-    @Override
-    public void saveMusicMediaCollection(final Path fileToSave, final MusicMediaCollection collection) {
-    	musicRepository.saveCollection(fileToSave, collection);
     }
 
 }

@@ -19,12 +19,15 @@ public class MusicRepositoryImpl implements MusicRepository{
 	@Override
 	public MusicMediaCollection loadCollection(final Path file) {
 		final String loadText = textFileStore.loadText(file);
-		return marshallingSupport.unmarshal(loadText, MusicMediaCollection.class);
+		return marshallingSupport.unmarshal(loadText, 
+                                                    MusicMediaCollection.class);
 	}
 
 	@Override
-	public void saveCollection(Path path, MusicMediaCollection musicMediaCollection) {
-		final String jsonMusicCollection = marshallingSupport.marshal(musicMediaCollection);
+	public void saveCollection(Path path, 
+                                   MusicMediaCollection musicMediaCollection) {
+		final String jsonMusicCollection = 
+                             marshallingSupport.marshal(musicMediaCollection);
 		textFileStore.saveText(jsonMusicCollection, path);
 	}
 
