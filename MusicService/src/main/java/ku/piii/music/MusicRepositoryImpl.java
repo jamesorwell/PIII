@@ -11,7 +11,8 @@ public class MusicRepositoryImpl implements MusicRepository{
 	private MarshallingSupport marshallingSupport;
 	private TextFileStore textFileStore;
 	
-	public MusicRepositoryImpl(final MarshallingSupport ms, final TextFileStore fileStore){
+	public MusicRepositoryImpl(final MarshallingSupport ms, 
+                final TextFileStore fileStore){
 		this.marshallingSupport = ms;
 		this.textFileStore = fileStore;
 	}

@@ -52,7 +52,8 @@ public class MusicServiceImplTest {
                         new MP3PathToMusicMapperImpl()
                 );
         MusicMediaCollection collection = instance.createMusicMediaCollection(Paths.get(pathToAddFrom));
-        assertThat(collection, Matchers.notNullValue());        
+        assertThat(collection, Matchers.notNullValue());
+        
         instance.saveMusicMediaCollection(Paths.get(jsonFileToSaveToAndLoadFrom), collection);
         MusicMediaCollection savedCollection = instance.loadMusicMediaCollection(Paths.get(jsonFileToSaveToAndLoadFrom));
         assertEquals(collection.getMusic().size(), savedCollection.getMusic().size());

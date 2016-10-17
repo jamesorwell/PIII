@@ -6,7 +6,6 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class MusicMediaCollection {
 
-    
     private List<MusicMedia> music = new CopyOnWriteArrayList<>();
 
     public List<MusicMedia> getMusic() {
