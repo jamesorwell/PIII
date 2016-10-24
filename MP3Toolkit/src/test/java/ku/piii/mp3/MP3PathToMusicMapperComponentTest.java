@@ -10,23 +10,28 @@ import org.junit.Test;
 
 import ku.piii.model.MusicMedia;
 import static org.hamcrest.Matchers.notNullValue;
+import static org.hamcrest.Matchers.notNullValue;
 
 public class MP3PathToMusicMapperComponentTest {
 
     @Test(expected = IllegalArgumentException.class)
-    public void whenNullPathIsPassedToMP3MusicMapperItThrowsIllegalArgumentExcpetion() {
+    public void nullInputTest() {
         final MP3PathToMusicMapper mp3PathToMusicMapper = new MP3PathToMusicMapperImpl();
         mp3PathToMusicMapper.mapPath(null);
     }
 
     @Test
     public void canMapRelativeMP3PathToMusic() {
-        final Path mp3Path = createPathToMP3("../test-music-files/collection-A/Anshlavs - Second Trip - clip.mp3");
+        String filename = "DARKPOP BAND ANGELIQUE - PERFECT WORLD (AMBIENT) - clip.mp3";
+        final Path mp3Path = createPathToMP3("../test-music-files/collection-A/" + filename);
         final MP3PathToMusicMapper mp3PathToMusicMapper = new MP3PathToMusicMapperImpl();
         final MusicMedia musicMedia = mp3PathToMusicMapper.mapPath(mp3Path);
         MatcherAssert.assertThat(musicMedia, notNullValue());
-        MatcherAssert.assertThat(musicMedia.getAbsolutePath(), equalTo(mp3Path.toAbsolutePath().toString()));
-        MatcherAssert.assertThat(musicMedia.getTitle(), equalTo("Second Trip"));
+        MatcherAssert.assertThat(musicMedia.getPath(), equalTo(mp3Path.toAbsolutePath().toString()));
+        MatcherAssert.assertThat(musicMedia.getTitle(), equalTo("PERFECT WORLD (AMBIENT)"));
+        MatcherAssert.assertThat(musicMedia.getYear(), equalTo("1999"));
+        MatcherAssert.assertThat(musicMedia.getGenre(), equalTo("Alt. Rock"));
+
     }
 
     private Path createPathToMP3(final String relativePathToMP3) {

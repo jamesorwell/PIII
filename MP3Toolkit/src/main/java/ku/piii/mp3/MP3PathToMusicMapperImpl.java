@@ -13,21 +13,21 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 public class MP3PathToMusicMapperImpl implements MP3PathToMusicMapper {
-    
-    
+
     private MusicMedia mapTag1(Mp3File mp3, MusicMedia m) {
         ID3v1 tag = mp3.getId3v1Tag();
-        m.setArtist(tag.getArtist());
         m.setTitle(tag.getTitle());
         m.setYear(tag.getYear());
+        m.setGenre(tag.getGenreDescription());
+
         return m;
     }
-    
+
     private MusicMedia mapTag2(Mp3File mp3, MusicMedia m) {
         ID3v2 tag = mp3.getId3v2Tag();
-        m.setArtist(tag.getArtist());
         m.setTitle(tag.getTitle());
         m.setYear(tag.getYear());
+        m.setGenre(tag.getGenreDescription());
         return m;
     }
 
@@ -37,32 +37,31 @@ public class MP3PathToMusicMapperImpl implements MP3PathToMusicMapper {
 
     @Override
     public MusicMedia mapPath(Path mp3File) {
-        
-        
+
         if (mp3File == null) {
             throw new IllegalArgumentException();
         }
-        
+
         MusicMedia m = new MusicMedia();
-        m.setAbsolutePath(mp3File.toString());
-        
+        m.setPath(mp3File.toString());
+
         try {
-            
+
             Mp3File mp3 = new Mp3File(mp3File.toString());
             Tag mp3TagType = getTag(mp3);
-            
+
             switch (mp3TagType) {
-                
+
                 case T1:
                     m = mapTag1(mp3, m);
                     break;
-                
+
                 case T2:
                     m = mapTag2(mp3, m);
                     break;
-                    
+
             }
-            
+
         } catch (IOException | UnsupportedTagException | InvalidDataException ex) {
             Logger.getLogger(MP3PathToMusicMapperImpl.class.getName()).log(Level.SEVERE, null, ex);
         }

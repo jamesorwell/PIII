@@ -1,23 +1,22 @@
 package ku.piii.music;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertThat;
 
 import java.nio.file.Paths;
+import java.util.Iterator;
+import java.util.List;
 
+import org.hamcrest.Matchers;
 import org.junit.Test;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import java.util.Iterator;
-import java.util.List;
 
 import ku.piii.marshalling.JacksonJSONMarshallingSupport;
 import ku.piii.model.MusicMedia;
 import ku.piii.model.MusicMediaCollection;
 import ku.piii.mp3.MP3PathToMusicMapperImpl;
 import ku.piii.nio.file.TextFileStoreImpl;
-import org.hamcrest.Matchers;
-import static org.junit.Assert.assertThat;
-import org.junit.Ignore;
 
 public class MusicServiceImplTest {
 
@@ -27,7 +26,7 @@ public class MusicServiceImplTest {
                 = new MusicServiceImpl(
                         new MusicRepositoryImpl(
                                 new JacksonJSONMarshallingSupport(new ObjectMapper()),
-                                                                  new TextFileStoreImpl()),
+                                new TextFileStoreImpl()),
                         new MP3PathToMusicMapperImpl()
                 );
         MusicMediaCollection collectionA = instance.createMusicMediaCollection(Paths.get("../test-music-files/collection-A"));
@@ -47,21 +46,23 @@ public class MusicServiceImplTest {
         MusicService instance
                 = new MusicServiceImpl(
                         new MusicRepositoryImpl(
-                                new JacksonJSONMarshallingSupport(new ObjectMapper()),
-                                                                  new TextFileStoreImpl()),
+                                new JacksonJSONMarshallingSupport(
+                                        new ObjectMapper()),
+                                        new TextFileStoreImpl()),
                         new MP3PathToMusicMapperImpl()
                 );
-        MusicMediaCollection collection = instance.createMusicMediaCollection(Paths.get(pathToAddFrom));
+        MusicMediaCollection collection = 
+                instance.createMusicMediaCollection(Paths.get(pathToAddFrom));
         assertThat(collection, Matchers.notNullValue());
-        
+
         instance.saveMusicMediaCollection(Paths.get(jsonFileToSaveToAndLoadFrom), collection);
         MusicMediaCollection savedCollection = instance.loadMusicMediaCollection(Paths.get(jsonFileToSaveToAndLoadFrom));
         assertEquals(collection.getMusic().size(), savedCollection.getMusic().size());
         assertThat(savedCollection, Matchers.notNullValue());
         assertThat(savedCollection.getMusic(), Matchers.hasSize(collection.getMusic().size()));
 
-        boolean comparisonResult = listsAreTheSame( collection.getMusic(),
-                                                    savedCollection.getMusic());
+        boolean comparisonResult = listsAreTheSame(collection.getMusic(),
+                savedCollection.getMusic());
         assertEquals(comparisonResult, true);
     }
 
@@ -74,7 +75,7 @@ public class MusicServiceImplTest {
                 = new MusicServiceImpl(
                         new MusicRepositoryImpl(
                                 new JacksonJSONMarshallingSupport(new ObjectMapper()),
-                                                                  new TextFileStoreImpl()),
+                                new TextFileStoreImpl()),
                         new MP3PathToMusicMapperImpl()
                 );
         MusicMediaCollection collection1
@@ -84,12 +85,12 @@ public class MusicServiceImplTest {
                 = instance.loadMusicMediaCollection(Paths.get(jsonFileToSaveTo));
 
         boolean comparisonResult = listsAreTheSame(collection1.getMusic(),
-                                                   collection2.getMusic());
+                collection2.getMusic());
         assertEquals(comparisonResult, true);
     }
 
     private boolean listsAreTheSame(List<MusicMedia> list1,
-                                    List<MusicMedia> list2) {
+            List<MusicMedia> list2) {
         if (list1 == null && list2 == null) {
             return true;
         }
@@ -113,8 +114,8 @@ public class MusicServiceImplTest {
             MusicMedia item2 = iterator2.next();
             if (itemsAreTheSame(item1, item2) == false) {
                 System.out.println("Items in list are not the same: so test failed because lists are different");
-                System.out.println("Item in first list is " + item1.getAbsolutePath());
-                System.out.println("Item in second list is " + item2.getAbsolutePath());
+                System.out.println("Item in first list is " + item1.getPath());
+                System.out.println("Item in second list is " + item2.getPath());
 
                 return false;
             }
@@ -128,9 +129,26 @@ public class MusicServiceImplTest {
         if (stringsAreTheSame(title1, title2) == false) {
             return false;
         }
-        String path1 = item1.getAbsolutePath();
-        String path2 = item2.getAbsolutePath();
+        String path1 = item1.getPath();
+        String path2 = item2.getPath();
         if (stringsAreTheSame(path1, path2) == false) {
+            return false;
+        }
+
+        // now year, genre, year
+        if (item1.getLengthInSeconds() != item2.getLengthInSeconds()) {
+            return false;
+        }
+
+        if (stringsAreTheSame(item1.getYear(), item2.getYear()) == false) {
+            return false;
+        }
+
+        if (item1.getId3Version() != item2.getId3Version()) {
+            return false;
+        }
+
+        if (stringsAreTheSame(item1.getGenre(), item2.getGenre()) == false) {
             return false;
         }
 

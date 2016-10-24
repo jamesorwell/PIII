@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-build-all</actionName>
+            <displayName>build and test all projects</displayName>
+            <goals>
+                <goal>package</goal>
+                <goal>install</goal>
+            </goals>
+            <activatedProfiles>
+                <activatedProfile>build-all</activatedProfile>
+            </activatedProfiles>
+        </action>
+    </actions>

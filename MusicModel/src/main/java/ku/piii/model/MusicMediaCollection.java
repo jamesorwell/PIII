@@ -20,8 +20,7 @@ public class MusicMediaCollection {
         music.add(musicMedia);
     }
 
-    public MusicMediaCollection mergeCollection
-                                (final MusicMediaCollection musicMedia) {
+    public MusicMediaCollection mergeCollection(final MusicMediaCollection musicMedia) {
         final MusicMediaCollection merge = new MusicMediaCollection();
         final ArrayList<MusicMedia> mergedMusic = new ArrayList<>();
         mergedMusic.addAll(music);
