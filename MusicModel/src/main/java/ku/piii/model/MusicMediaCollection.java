@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class MusicMediaCollection {
-
     private List<MusicMedia> music = new CopyOnWriteArrayList<>();
 
     public List<MusicMedia> getMusic() {
@@ -20,12 +19,20 @@ public class MusicMediaCollection {
         music.add(musicMedia);
     }
 
-    public MusicMediaCollection mergeCollection(final MusicMediaCollection musicMedia) {
+	public MusicMediaCollection mergeCollection
+                                (final MusicMediaCollection musicMedia) {
         final MusicMediaCollection merge = new MusicMediaCollection();
         final ArrayList<MusicMedia> mergedMusic = new ArrayList<>();
         mergedMusic.addAll(music);
         mergedMusic.addAll(musicMedia.getMusic());
         merge.setMusic(mergedMusic);
         return merge;
+    }
+
+    public void removeMusicMedia(MusicMedia removedChild) {
+        if(music.remove(removedChild)==false)
+        {
+            throw new RuntimeException("tried to remove an object that wasn't in the list");
+        }
     }
 }
