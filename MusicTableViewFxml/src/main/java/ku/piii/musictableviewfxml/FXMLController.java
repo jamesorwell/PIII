@@ -12,6 +12,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableView;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import ku.piii.model.MusicMedia;
 import ku.piii.model.MusicMediaCollection;
 import ku.piii.model.MusicMediaColumnInfo;
@@ -25,13 +28,12 @@ public class FXMLController implements Initializable {
 
     private ObservableList<MusicMedia> dataForTableView;
 
-
-    
     @FXML
     private Label addressBook;
-    
-    @FXML private TableView<MusicMedia> tableView;
-    
+
+    @FXML
+    private TableView<MusicMedia> tableView;
+
     @FXML
     private void handleButtonAction(ActionEvent event) {
         final MusicMediaCollection collection = MUSIC_SERVICE
@@ -45,13 +47,28 @@ public class FXMLController implements Initializable {
         tableView.setItems(dataForTableView);
         TableViewFactory.makeTable(tableView, myColumnInfoList);
         tableView.setEditable(true);
-       // TODO
+        // TODO
     }
-    
+
+    @FXML
+    private void handleAboutAction(final ActionEvent event) {
+
+    }
+
+    @FXML
+    private void handleKeyInput(final InputEvent event) {
+        if (event instanceof KeyEvent) {
+            final KeyEvent keyEvent = (KeyEvent) event;
+            if (keyEvent.isControlDown() && keyEvent.getCode() == KeyCode.A) {
+                System.out.println("sfsds");
+            }
+        }
+    }
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
-    }    
+
+    }
 
     private static ListChangeListener<MusicMedia> makeChangeListener(final MusicMediaCollection collection) {
         return new ListChangeListener<MusicMedia>() {
@@ -60,18 +77,17 @@ public class FXMLController implements Initializable {
                 while (change.next()) {
                     if (change.wasAdded()) {
                         for (MusicMedia addedChild : change.getAddedSubList()) {
-                             collection.addMusicMedia(addedChild);
+                            collection.addMusicMedia(addedChild);
                         }
                     }
                     if (change.wasRemoved()) {
                         for (MusicMedia removedChild : change.getRemoved()) {
                             collection.removeMusicMedia(removedChild);
-                         }
+                        }
                     }
                 }
             }
         };
     }
-
 
 }
