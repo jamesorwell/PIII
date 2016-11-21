@@ -20,6 +20,7 @@
                 <module>HelloTestFX</module>
                 <module>TableViewSample</module>
                 <module>MusicTableViewFxml</module>
+                <module>TwoCollectionsInConsole</module>
             </modules>
         </profile>
     </profiles>
