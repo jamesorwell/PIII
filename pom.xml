@@ -21,11 +21,12 @@
                 <module>TableViewSample</module>
                 <module>MusicTableViewFxml</module>
                 <module>TwoCollectionsInConsole</module>
+                <module>MusicBrainzToolkit</module>
             </modules>
         </profile>
     </profiles>
-  <modules>
-    <module>MusicTableViewFxml</module>
-    <module>MusicBrainzToolkit</module>
-  </modules>
+    <modules>
+        <module>MusicTableViewFxml</module>
+        <module>MusicBrainzToolkit</module>
+    </modules>
 </project>
