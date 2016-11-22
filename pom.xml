@@ -26,5 +26,6 @@
     </profiles>
   <modules>
     <module>MusicTableViewFxml</module>
+    <module>MusicBrainzToolkit</module>
   </modules>
 </project>
