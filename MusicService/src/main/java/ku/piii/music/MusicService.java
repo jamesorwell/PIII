@@ -7,6 +7,7 @@ public interface MusicService {
     public MusicMediaCollection createMusicMediaCollection(Path root);
     public void saveMusicMediaCollection(Path fileToSave, MusicMediaCollection collection);
     public MusicMediaCollection loadMusicMediaCollection(Path fileToLoad);
+
     
     
 }
