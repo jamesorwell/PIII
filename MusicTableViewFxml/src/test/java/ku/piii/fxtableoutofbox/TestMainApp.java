@@ -12,6 +12,7 @@ import org.apache.commons.lang.builder.EqualsBuilder;
 import org.apache.commons.lang.builder.HashCodeBuilder;
 import org.apache.commons.lang.builder.ToStringBuilder;
 import org.junit.Test;
+import org.junit.Ignore;
 
 import org.loadui.testfx.GuiTest;
 
@@ -33,6 +34,7 @@ import org.loadui.testfx.controls.TableViews;
 import org.loadui.testfx.exceptions.NoNodesFoundException;
 
 @SuppressWarnings("restriction")
+@Ignore
 public class TestMainApp extends GuiTest {
 
     final String pathScannedOnLoad = "../test-music-files/collection-A";
