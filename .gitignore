@@ -18,3 +18,7 @@ hs_err_pid*
 /test43/test43/target/
 /x/test43/target/
 /test43/target/
+/TwoCollectionsInConsole/target/
+/MyNewGui23/target/
+/TwoCollectionsModel/target/
+/TwoCollectionsInFxml/target/

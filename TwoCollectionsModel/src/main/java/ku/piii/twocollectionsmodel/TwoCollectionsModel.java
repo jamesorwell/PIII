@@ -3,10 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ku.piii.twocollectionsinconsole;
+package ku.piii.twocollectionsmodel;
 
 import java.io.File;
 import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.List;
+import ku.piii.model.MusicMedia;
 import ku.piii.model.MusicMediaCollection;
 import ku.piii.music.MusicService;
 import ku.piii.music.MusicServiceFactory;
@@ -15,19 +18,19 @@ import ku.piii.music.MusicServiceFactory;
  *
  * @author ku14009
  */
-class ExampleModel {
+public class TwoCollectionsModel {
 
     MusicMediaCollection firstCollection;
     MusicMediaCollection secondCollection;
     MusicService myMusicService
             = MusicServiceFactory.getMusicServiceInstance();
 
-    public ExampleModel() {
+    public TwoCollectionsModel() {
         firstCollection = null;
         secondCollection = null;
     }
 
-    boolean haveFirstCollection() {
+    public boolean haveFirstCollection() {
         if (firstCollection == null) {
             return false;
         } else {
@@ -35,7 +38,7 @@ class ExampleModel {
         }
     }
 
-    boolean haveSecondCollection() {
+    public boolean haveSecondCollection() {
         if (secondCollection == null) {
             return false;
         } else {
@@ -43,48 +46,65 @@ class ExampleModel {
         }
     }
 
-    void clearFirstCollection() {
+    public void clearFirstCollection() {
         firstCollection = null;
     }
 
-    void loadFirstCollection(String collectionFilename) {
+    public void loadFirstCollection(String collectionFilename) {
         firstCollection = myMusicService.loadMusicMediaCollection(
                             Paths.get(collectionFilename));
     }
 
-    void createFirstCollection(String root) {
+    public void createFirstCollection(String root) {
 
         firstCollection = myMusicService.createMusicMediaCollection(
                 Paths.get(root));
     }
 
-    void saveFirstCollection(String filename) {
+    public void saveFirstCollection(String filename) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    MusicMediaCollection getFirstCollection() {
+    public MusicMediaCollection getFirstCollection() {
         return firstCollection;
     }
 
-    void clearSecondCollection() {
+    public void clearSecondCollection() {
         secondCollection = null;
     }
 
-    void loadSecondCollection(String collectionFilename) {
+    public void loadSecondCollection(String collectionFilename) {
         secondCollection = myMusicService.loadMusicMediaCollection(
                 Paths.get(collectionFilename));
     }
 
-    void createSecondCollection(String root) {
+    public void createSecondCollection(String root) {
         secondCollection = myMusicService.createMusicMediaCollection(
                 Paths.get(root));
     }
 
-    void saveSecondCollection(String filename) {
+    public void saveSecondCollection(String filename) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    MusicMediaCollection getSecondCollection() {
+    public MusicMediaCollection getSecondCollection() {
         return secondCollection;
+    }
+    
+    public void setFirstCollection(List<MusicMedia> thisList)
+    {
+        firstCollection = new MusicMediaCollection();
+        firstCollection.setMusic(thisList);
+    }
+    public void setSecondCollection(List<MusicMedia> thisList)
+    {
+        secondCollection = new MusicMediaCollection();        
+        secondCollection.setMusic(thisList);
+    }
+    public void swap()
+    {
+         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        
     }
 }

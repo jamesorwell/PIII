@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
+
+<GridPane alignment="CENTER" hgap="10.0" vgap="10.0"
+          xmlns:fx="http://javafx.com/fxml"
+          fx:controller="ku.piii.twocollectionsinfxml.TwoCollectionsController">
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding> 
+    <Label style="-fx-font: NORMAL 20 Tahoma;" text="Music Collection"                
+           GridPane.columnIndex="0" GridPane.rowIndex="0" fx:id="addressBook">
+    </Label>
+    <TableView fx:id="tableView1" 
+               GridPane.columnIndex="0" 
+               GridPane.columnSpan="1" 
+               GridPane.hgrow="ALWAYS" 
+               GridPane.vgrow="ALWAYS"        
+               GridPane.rowIndex="1">
+    </TableView>
+    <Button fx:id="button1" 
+               GridPane.columnIndex="0" 
+            GridPane.rowIndex="2" 
+            text="Load Collection A" 
+            onAction="#handleButton1Action" />
+    <TableView fx:id="tableView2" 
+               GridPane.columnIndex="1" 
+               GridPane.columnSpan="1" 
+               GridPane.hgrow="ALWAYS" 
+               GridPane.vgrow="ALWAYS"        
+               GridPane.rowIndex="1">
+    </TableView>
+    <Button fx:id="button2" 
+            GridPane.columnIndex="1" 
+            GridPane.rowIndex="2" 
+            text="Load Collection B" 
+            onAction="#handleButton2Action" />
+
+  
+    <MenuBar fx:id="menuBar" onKeyPressed="#handleKeyInput">
+        <menus>
+            <Menu text="File">
+                <items>
+                    <MenuItem text="New"/>
+                    <MenuItem text="Open"/>
+                    <MenuItem text="Save"/>
+                    <MenuItem text="Save As"/>
+                    <SeparatorMenuItem  />
+                    <MenuItem text="Exit"/>
+                </items>
+            </Menu>
+            <Menu text="Edit">
+                <items>
+                    <MenuItem text="Copy"/>
+                    <MenuItem text="Cut"/>
+                    <MenuItem text="Paste"/>
+                </items>
+            </Menu>
+            <Menu text="Help">
+                <items>
+                    <MenuItem text="Search" disable="true"/>
+                    <MenuItem text="Online Manual" visible="false"/>
+                    <SeparatorMenuItem />
+                    <MenuItem text="About" onAction="#handleAboutAction"/>
+                </items>
+            </Menu>
+        </menus>
+    </MenuBar>
+
+</GridPane>

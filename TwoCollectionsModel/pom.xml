@@ -6,17 +6,12 @@
         <artifactId>all</artifactId>
         <version>1.0-SNAPSHOT</version>
     </parent>
-    <artifactId>TwoCollectionsInConsole</artifactId>
+    <artifactId>TwoCollectionsModel</artifactId>
     <packaging>jar</packaging>
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>music-service</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>${project.groupId}</groupId>
-            <artifactId>TwoCollectionsModel</artifactId>
             <version>${project.version}</version>
         </dependency>
     </dependencies>

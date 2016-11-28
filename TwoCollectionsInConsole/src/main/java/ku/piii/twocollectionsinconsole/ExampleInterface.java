@@ -11,6 +11,7 @@ import java.util.Scanner;
 import ku.piii.model.MusicMedia;
 import ku.piii.model.MusicMediaCollection;
 import ku.piii.twocollectionsinconsole.ExampleOption.OptionID;
+import ku.piii.twocollectionsmodel.TwoCollectionsModel;
 
 
 /**
@@ -19,7 +20,7 @@ import ku.piii.twocollectionsinconsole.ExampleOption.OptionID;
  */
 public class ExampleInterface {
 
-    ExampleModel model;
+    TwoCollectionsModel model;
     List<ExampleOption> options;
 
     /**
@@ -28,7 +29,7 @@ public class ExampleInterface {
     public static void main(String[] args) {
         // TODO code application logic here
 
-        ExampleModel myModel = new ExampleModel();
+        TwoCollectionsModel myModel = new TwoCollectionsModel();
         ExampleInterface myInterface = new ExampleInterface();
         myInterface.setModel(myModel);
         while (true) {
@@ -44,7 +45,7 @@ public class ExampleInterface {
         }
     }
 
-    private void setModel(ExampleModel myModel) {
+    private void setModel(TwoCollectionsModel myModel) {
         model = myModel;
     }
 
