@@ -22,3 +22,5 @@ hs_err_pid*
 /MyNewGui23/target/
 /TwoCollectionsModel/target/
 /TwoCollectionsInFxml/target/
+/HelloTestFX/target/
+/TableViewSample/target/

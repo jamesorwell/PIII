@@ -19,7 +19,7 @@ public class MP3PathToMusicMapperImpl implements MP3PathToMusicMapper {
         m.setTitle(tag.getTitle());
         m.setYear(tag.getYear());
         m.setGenre(tag.getGenreDescription());
-
+        m.setArtist(tag.getArtist());
         return m;
     }
 
@@ -28,6 +28,7 @@ public class MP3PathToMusicMapperImpl implements MP3PathToMusicMapper {
         m.setTitle(tag.getTitle());
         m.setYear(tag.getYear());
         m.setGenre(tag.getGenreDescription());
+        m.setArtist(tag.getArtist());
         return m;
     }
 
