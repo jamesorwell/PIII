@@ -1,0 +1,5 @@
+1.I want to be able to view top albums of an artist i like so that i can discover more of their music
+
+2.I want to know more about the artist i am listening to.
+ 
+3. i want to be able to add new music files to my music player
