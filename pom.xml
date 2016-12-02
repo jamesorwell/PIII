@@ -19,7 +19,7 @@
                 <module>MusicService</module>
                 <module>HelloTestFX</module>
                 <module>TableViewSample</module>
-                <module>MyNewGui23</module>
+                
                 <module>MusicTableViewFxml</module>
                 <module>TwoCollectionsModel</module>
                 <module>TwoCollectionsInConsole</module>

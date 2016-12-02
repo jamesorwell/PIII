@@ -2,6 +2,8 @@ package ku.piii.model;
 
 public class MusicMedia {
 
+   
+
     public enum Id3Version {
         V1, V2
     }
@@ -13,6 +15,17 @@ public class MusicMedia {
     private String title;
     private String year;
     private String genre;
+    private String artist;
+
+    public String getArtist() {
+        return artist;
+    }
+
+  
+
+    public void setArtist(String artist) {
+        this.artist = artist;
+    }
 
     public MusicMedia() {
     }

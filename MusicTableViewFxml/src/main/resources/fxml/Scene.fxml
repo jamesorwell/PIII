@@ -2,31 +2,74 @@
 
 <?import java.lang.*?>
 <?import java.util.*?>
+
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.geometry.Insets?>
 
-<GridPane alignment="CENTER" hgap="10.0" vgap="10.0"
-          xmlns:fx="http://javafx.com/fxml"
+
+
+<GridPane xmlns:fx="http://javafx.com/fxml/1"   alignment="CENTER" hgap="10.0" vgap="10.0"
+        
           fx:controller="ku.piii.musictableviewfxml.FXMLController">
     <padding>
         <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
     </padding> 
+    
     <Label style="-fx-font: NORMAL 20 Tahoma;" text="Music Collection"                
            GridPane.columnIndex="0" GridPane.rowIndex="0" fx:id="addressBook">
     </Label>
+
+
+    <Label  text=""  GridPane.columnIndex="0" GridPane.rowIndex="4" fx:id="selectCheck" >
+    </Label>
+    <Label  text="top tracks"  visible="false" GridPane.columnIndex="0" GridPane.rowIndex="5" fx:id="toptrackslabel" >
+    </Label>
+
     <TableView fx:id="tableView" 
                GridPane.columnIndex="0" 
                GridPane.columnSpan="1" 
                GridPane.hgrow="ALWAYS" 
                GridPane.vgrow="ALWAYS"        
-               GridPane.rowIndex="1">
+               GridPane.rowIndex="2"> 
     </TableView>
-    <Button GridPane.rowIndex="2" text="Click Me!" onAction="#handleButtonAction" fx:id="button" />
     
-  
-    <MenuBar fx:id="menuBar" onKeyPressed="#handleKeyInput">
+    <TableView fx:id="tableView2" 
+               GridPane.columnIndex="1" 
+               GridPane.columnSpan="1" 
+               GridPane.hgrow="ALWAYS" 
+               GridPane.vgrow="ALWAYS"        
+               GridPane.rowIndex="2">
+    </TableView>
+    
+    <TextArea fx:id="textarea" 
+              GridPane.columnIndex="0" 
+              wrapText="true" 
+              GridPane.halignment="RIGHT"       
+              GridPane.rowIndex="6"
+              maxWidth="300" 
+              GridPane.hgrow="NEVER"
+              visible="false">          
+    </TextArea>
+    
+    <ListView fx:id="toptrackslist"
+              GridPane.columnIndex="0" 
+              GridPane.columnSpan="1" 
+              GridPane.halignment="LEFT" 
+              maxWidth="200"  
+              GridPane.fillWidth="true" 
+              GridPane.hgrow="ALWAYS" 
+              GridPane.rowIndex="6"
+              visible="false" >  
+    </ListView>  
+    
+    <Button GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.halignment="RIGHT"   text="info" onAction="#topTracks" fx:id="Info" />
+    <Button GridPane.rowIndex="3" GridPane.columnIndex="0"  text="Start" onAction="#handleButtonAction" fx:id="button" />
+    <Button GridPane.rowIndex="3" GridPane.halignment="CENTER"  text="select" onAction="#handleLookUpBtnAction" fx:id="lookupbtn" />
+    <Button GridPane.rowIndex="3" GridPane.columnIndex="1" GridPane.halignment="right"  text="browse" onAction="#browse" fx:id="browse" />
+   
+    <MenuBar fx:id="menuBar" onKeyPressed="#handleKeyInput"> 
         <menus>
             <Menu text="File">
                 <items>
@@ -55,5 +98,5 @@
             </Menu>
         </menus>
     </MenuBar>
-
 </GridPane>
+
