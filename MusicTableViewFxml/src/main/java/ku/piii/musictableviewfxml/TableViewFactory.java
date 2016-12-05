@@ -35,9 +35,9 @@ public class TableViewFactory {
                                              .setMinWidth(200)
                                              .setProperty("path")
         );
-        myColumnInfoList.add(new MusicMediaColumnInfo().setHeading("Length (secs)")
+        myColumnInfoList.add(new MusicMediaColumnInfo().setHeading("Artist")
                                              .setMinWidth(20)
-                                             .setProperty("lengthInSeconds")
+                                             .setProperty("artist")
         );
         myColumnInfoList.add(new MusicMediaColumnInfo().setHeading("Track Title")
                                              .setMinWidth(100)

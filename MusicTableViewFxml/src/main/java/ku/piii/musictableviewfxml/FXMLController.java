@@ -2,6 +2,7 @@ package ku.piii.musictableviewfxml;
 
 import de.umass.lastfm.Artist;
 import de.umass.lastfm.Track;
+import de.umass.lastfm.Track.*;
 import static de.umass.lastfm.Artist.getTopTracks;
 import static de.umass.lastfm.Artist.*;
 import java.io.IOException;
@@ -41,13 +42,14 @@ public class FXMLController implements Initializable {
     private final static MusicService MUSIC_SERVICE = MusicServiceFactory.getMusicServiceInstance();
 
     private ObservableList<MusicMedia> dataForTableView;
-
+    public String selectedArtist;
     @FXML
     private TextArea textarea;
     @FXML
     private Label toptrackslabel;
     @FXML
     private ListView toptrackslist;
+   
     @FXML
     private Label selectCheck;
     @FXML
@@ -94,6 +96,8 @@ public class FXMLController implements Initializable {
             tableView2.setItems(dataForTableView);
         }
     }
+    
+   
 
     @FXML
     private void handleAboutAction(final ActionEvent event) {
@@ -154,21 +158,33 @@ public class FXMLController implements Initializable {
             toptrackslist.setVisible(true);
             toptrackslabel.setVisible(true);
             t = (Track) iterator.next();
-
+            System.out.println(t);
+            
             mm.setTitle(t.getName());
             toptracks.add(mm.getTitle());
             toptrackslabel.setText("top tracks for " + artist.getArtist());
             i++;
         }
+        selectedArtist = artist.getArtist();
         textarea.setText(artistInfo(artist.getArtist()));
         toptrackslist.setItems(toptracks);
 
+    }
+    @FXML
+     private void VisitURL(){        
+       //  ObservableList<Track> track = toptrackslist.getSelectionModel().getSelectedItems();
+       String tra = (String) toptrackslist.getSelectionModel().getSelectedItem();
+       System.out.println(tra);
+       System.out.println(selectedArtist);
+       Track t = Track.getInfo(selectedArtist, tra, key);
+       System.out.println("URL HERE ==== " + t.getUrl());
+       
     }
 
     public String artistInfo(String artistName) {
 
         Artist a = getInfo(artistName, key);
-
+        
         System.out.println(a.getUrl());
         return a.getWikiSummary();
     }
