@@ -5,20 +5,56 @@
  */
 package ku.piii.twocollectionsmodel;
 
-import java.io.File;
+import de.umass.lastfm.Artist;
+import static de.umass.lastfm.Artist.*;
+import static de.umass.lastfm.Artist.getInfo;
+import static de.umass.lastfm.Artist.getTopTracks;
+import java.io.IOException;
 import java.nio.file.Paths;
-import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
+import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TableView;
+import javafx.scene.control.TextArea;
+import de.umass.lastfm.Track;
+import de.umass.lastfm.Track.*;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import ku.piii.model.MusicMedia;
 import ku.piii.model.MusicMediaCollection;
 import ku.piii.music.MusicService;
 import ku.piii.music.MusicServiceFactory;
+
 
 /**
  *
  * @author ku14009
  */
 public class TwoCollectionsModel {
+    
+
+     public String selectedArtist;
+      @FXML
+    private TextArea textarea;
+    @FXML
+    private Label toptrackslabel;
+    @FXML
+    private ListView toptrackslist;
+   
+    @FXML
+    private Label selectCheck;
+    @FXML
+    private TableView<MusicMedia> tableView;
+    @FXML
+    private TableView tableView2;
+    @FXML
 
     MusicMediaCollection firstCollection;
     MusicMediaCollection secondCollection;
@@ -103,8 +139,49 @@ public class TwoCollectionsModel {
     }
     public void swap()
     {
-         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-
-        
+         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.        
     }
+    
+    @FXML
+     public ObservableList<String> topTracks(String artist, String key) throws IOException {
+   
+        Track t;
+        int i = 0;
+        MusicMedia mm = new MusicMedia();
+        ObservableList<String> toptracks = FXCollections.observableArrayList();
+        Collection<Track> info = getTopTracks(artist, key);
+        Iterator iterator = info.iterator();
+        while (iterator.hasNext() && i != 10) {
+            t = (Track) iterator.next();
+            System.out.println(t); 
+            mm.setTitle(t.getName());
+            toptracks.add(mm.getTitle());    
+            i++;
+        }
+        selectedArtist = artist;
+        return toptracks;  
+    }
+     
+     
+     
+       public String artistInfo(String artistName, String key) {
+           System.out.println("artist info called");
+        Artist a = getInfo(artistName, key);   
+        System.out.println(a.getUrl());
+       return a.getWikiSummary();     
+    }
+     
+     
+      @FXML
+     public String VisitURL(String track, String key) throws URISyntaxException, IOException{            
+       Track t = Track.getInfo(selectedArtist, track, key);
+       System.out.println("URL HERE ==== " + t.getUrl());
+       URI ur = new URI(t.getUrl());
+       java.awt.Desktop.getDesktop().browse(ur);
+       return t.getUrl();
+       
+    }
+
+     
+  
 }

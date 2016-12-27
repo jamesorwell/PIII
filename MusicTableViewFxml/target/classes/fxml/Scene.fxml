@@ -57,20 +57,20 @@
               GridPane.columnIndex="0" 
               GridPane.columnSpan="1" 
               GridPane.halignment="LEFT" 
-              maxWidth="400"  
+              maxWidth="300"  
               GridPane.fillWidth="true" 
               GridPane.hgrow="ALWAYS" 
               GridPane.rowIndex="6"
               visible="false" 
     >  
     </ListView>  
-     
-    
-    <Button GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.halignment="RIGHT"   text="info" onAction="#topTracks" fx:id="Info" />
+      <Button GridPane.rowIndex="4" GridPane.columnIndex="0" GridPane.halignment="CENTER" text="testButton" onAction="#ArtistLookUp" fx:id="testButton" />
+      <Button GridPane.rowIndex="4" GridPane.columnIndex="1" GridPane.halignment="left"  text="findURL" onAction="#goToURL" fx:id="findURL" />
+   <!-- <Button GridPane.rowIndex="3" GridPane.columnIndex="0" GridPane.halignment="RIGHT"   text="info" onAction="#topTracks" fx:id="Info" /> -->
     <Button GridPane.rowIndex="3" GridPane.columnIndex="0"  text="Start" onAction="#handleButtonAction" fx:id="button" />
-    <Button GridPane.rowIndex="3" GridPane.halignment="CENTER"  text="select" onAction="#handleLookUpBtnAction" fx:id="lookupbtn" />
+     <Button GridPane.rowIndex="3" GridPane.halignment="CENTER"  text="select" onAction="#handleLookUpBtnAction" fx:id="lookupbtn" />
     <Button GridPane.rowIndex="3" GridPane.columnIndex="1" GridPane.halignment="right"  text="browse" onAction="#browse" fx:id="browse" />
-    <Button GridPane.rowIndex="3" GridPane.columnIndex="1" GridPane.halignment="left"  text="findURL" onAction="#VisitURL" fx:id="findURL" />
+   <!-- <Button GridPane.rowIndex="3" GridPane.columnIndex="1" GridPane.halignment="left"  text="findURL" onAction="#VisitURL" fx:id="findURL" /> -->
     
     <MenuBar fx:id="menuBar" onKeyPressed="#handleKeyInput"> 
         <menus>

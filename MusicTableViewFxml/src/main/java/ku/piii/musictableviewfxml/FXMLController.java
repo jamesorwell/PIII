@@ -33,9 +33,20 @@ import ku.piii.model.MusicMediaColumnInfo;
 import ku.piii.music.MusicService;
 import ku.piii.music.MusicServiceFactory;
 import ku.piii.marshalling.JacksonJSONMarshallingSupport;
+import java.awt.Desktop;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import ku.piii.twocollectionsmodel.TwoCollectionsModel;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.ButtonType;
+import javafx.scene.layout.GridPane;
 
 public class FXMLController implements Initializable {
 
+    TwoCollectionsModel model = new TwoCollectionsModel();
     public String key = "db0feeb2f3625eb7400e31b982474319";
     JacksonJSONMarshallingSupport js;
     String pathScannedOnLoad = "../test-music-files/";
@@ -44,12 +55,14 @@ public class FXMLController implements Initializable {
     private ObservableList<MusicMedia> dataForTableView;
     public String selectedArtist;
     @FXML
+    private GridPane gp;
+    @FXML
     private TextArea textarea;
     @FXML
     private Label toptrackslabel;
     @FXML
     private ListView toptrackslist;
-   
+
     @FXML
     private Label selectCheck;
     @FXML
@@ -96,8 +109,6 @@ public class FXMLController implements Initializable {
             tableView2.setItems(dataForTableView);
         }
     }
-    
-   
 
     @FXML
     private void handleAboutAction(final ActionEvent event) {
@@ -139,9 +150,10 @@ public class FXMLController implements Initializable {
         };
     }
 
+    /*
     @FXML
     private void topTracks(ActionEvent event) throws IOException {
-
+ 
         Track t;
         int i = 0;
         MusicMedia mm = new MusicMedia();
@@ -168,27 +180,71 @@ public class FXMLController implements Initializable {
         selectedArtist = artist.getArtist();
         textarea.setText(artistInfo(artist.getArtist()));
         toptrackslist.setItems(toptracks);
+    }
+     */
+    @FXML
+    private void ArtistLookUp(ActionEvent event) throws IOException {
+
+        String artistName;
+        MusicMedia artist = new MusicMedia();
+        
+        System.out.println("button pressed");
+        artist = tableView.getSelectionModel().getSelectedItem();
+        artistName = artist.getArtist();
+        textarea.setVisible(true);
+        toptrackslist.setVisible(true);
+        toptrackslabel.setVisible(true);
+        System.out.println(artistName);
+
+        toptrackslabel.setText("top tracks for " + artistName);
+        textarea.setText(model.artistInfo(artistName, key));
+        toptrackslist.setItems(model.topTracks(artistName, key));
+    }
+
+    @FXML
+    private void goToURL() throws URISyntaxException, IOException {
+        String track = (String) toptrackslist.getSelectionModel().getSelectedItem();
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setHeaderText("Opening website...");
+        alert.setTitle("ATTENTION");
+        alert.setContentText("you are about to leave this program and be taken to a website, click ok to continue");
+        alert.showAndWait().ifPresent(rs -> {
+            if (rs == ButtonType.OK) {
+                try {
+                    model.VisitURL(track, key);
+                } catch (URISyntaxException ex) {
+                    Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                } catch (IOException ex) {
+                    Logger.getLogger(FXMLController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        });
 
     }
+
+    /*
     @FXML
-     private void VisitURL(){        
+     private void VisitURL() throws URISyntaxException, IOException{        
        //  ObservableList<Track> track = toptrackslist.getSelectionModel().getSelectedItems();
        String tra = (String) toptrackslist.getSelectionModel().getSelectedItem();
        System.out.println(tra);
        System.out.println(selectedArtist);
        Track t = Track.getInfo(selectedArtist, tra, key);
        System.out.println("URL HERE ==== " + t.getUrl());
+       URI ur = new URI(t.getUrl());
+       java.awt.Desktop.getDesktop().browse(ur);
        
     }
+/*
 
+/*
     public String artistInfo(String artistName) {
 
         Artist a = getInfo(artistName, key);
-        
         System.out.println(a.getUrl());
         return a.getWikiSummary();
     }
-
+     */
     @FXML
     public void browse() throws IOException {
         JFileChooser chooser = new JFileChooser();
